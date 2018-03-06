@@ -62,7 +62,7 @@ module Rrerrtriserv
             Thread.new do
               redis do |r|
                 r.psubscribe("#{BASE_PUBSUB_KEY}.*") do |on|
-                  on.message do |channel, message|
+                  on.pmessage do |_glob, channel, message|
                     topic = channel.split(".")[1..-1].join(".")
                     content = unpack(message)
                     handler.call(topic, content)
