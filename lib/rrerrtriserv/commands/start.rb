@@ -5,6 +5,7 @@ require "websocket"
 require "websocket-eventmachine-server"
 
 require "rrerrtriserv/use_case/send_motd"
+require "rrerrtriserv/use_case/receive"
 
 module Rrerrtriserv
   module Commands
@@ -28,6 +29,7 @@ module Rrerrtriserv
 
           ws.onmessage do |msg, type|
             Rrerrtriserv.logger.debug "Received message: #{msg.inspect}, #{type.inspect}"
+            Rrerrtriserv::UseCase::Receive.new(ws: ws, msg: msg).run
           end
 
           ws.onclose do
