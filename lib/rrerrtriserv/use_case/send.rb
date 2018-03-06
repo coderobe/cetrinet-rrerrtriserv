@@ -26,8 +26,8 @@ module Rrerrtriserv
       def payload
         {
           v: version,
-          type: type,
-          data: data
+          t: type,
+          d: data
         }
       end
     end
