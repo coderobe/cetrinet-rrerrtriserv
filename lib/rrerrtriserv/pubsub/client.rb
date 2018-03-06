@@ -7,7 +7,7 @@ module Rrerrtriserv
     class Client
       TYPE_MAP = {
         "cmsg" => Pubsub::Handler::ChatMessage
-      }
+      }.freeze
 
       attr_reader :ws
 
