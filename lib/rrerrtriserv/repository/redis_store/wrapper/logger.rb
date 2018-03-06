@@ -28,6 +28,16 @@ module Rrerrtriserv
             Rrerrtriserv.logger.debug "marking #{peer} as authenticated"
             { peer: peer, name: name, client: client }
           end
+
+          def before_subscribe_client(peer:, handler:)
+            Rrerrtriserv.logger.debug "creating new client subscription handler for #{peer}"
+            { peer: peer, handler: handler }
+          end
+
+          def before_publish(topic:, content:)
+            Rrerrtriserv.logger.debug "publishing #{topic} with content #{content.inspect}"
+            { topic: topic, content: content }
+          end
         end
       end
     end

@@ -19,6 +19,9 @@ module Rrerrtriserv
       mediate :del_connection
       mediate :authenticate_client
       mediate :authenticated?
+      mediate :client_name
+      mediate :subscribe_client
+      mediate :publish
     end
   end
 end

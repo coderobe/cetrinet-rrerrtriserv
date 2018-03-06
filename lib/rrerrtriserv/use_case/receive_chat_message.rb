@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require "msgpack"
-
+require "rrerrtriserv/repository/redis_store"
 require "rrerrtriserv/use_case/base"
 require "rrerrtriserv/use_case/concerns/authentication"
 
@@ -13,7 +12,10 @@ module Rrerrtriserv
       def run
         require_authentication!
         Rrerrtriserv.logger.info "received message from client to #{target}: #{message}"
-        # TODO: distribute message to clients
+        Rrerrtriserv::Repository::RedisStore.publish(
+          topic: "cmsg.#{target}",
+          content: { source: client_name, message: message }
+        )
       end
 
       def data

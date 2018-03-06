@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "connection_pool"
 require "redis"
 
 module Rrerrtriserv
@@ -10,7 +11,9 @@ module Rrerrtriserv
       attr_reader :redis
 
       def initialize
-        @redis = ::Redis.new(url: Rrerrtriserv.config.redis.url)
+        @redis = ConnectionPool.new(size: Rrerrtriserv.config.redis.pool) do
+          ::Redis.new(url: Rrerrtriserv.config.redis.url)
+        end
       end
     end
   end

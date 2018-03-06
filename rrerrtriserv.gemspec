@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "confstruct", "~> 1.0"
+  spec.add_dependency "connection_pool", "~> 2.2"
   spec.add_dependency "eventmachine", "~> 1.2"
   spec.add_dependency "msgpack", "~> 1.2"
   spec.add_dependency "receptacle", "~> 0.3"

@@ -7,3 +7,6 @@ motd: |
 
 redis:
   url: redis://127.0.0.1:6379/5
+  # this will limit the amount of users being able to play on this server.
+  # therefore: set it as high as possible
+  pool: 1000
