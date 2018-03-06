@@ -4,3 +4,6 @@ motd: |
 
   This is the motd of the server. It supports
   multiple lines.  Yay!
+
+redis:
+  url: redis://127.0.0.1:6379/5

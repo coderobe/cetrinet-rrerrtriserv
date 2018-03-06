@@ -25,6 +25,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "confstruct", "~> 1.0"
   spec.add_dependency "eventmachine", "~> 1.2"
   spec.add_dependency "msgpack", "~> 1.2"
+  spec.add_dependency "receptacle", "~> 0.3"
+  spec.add_dependency "redis", "~> 4.0"
   spec.add_dependency "thor", "~> 0.20"
   spec.add_dependency "websocket", "~> 1.2"
   spec.add_dependency "websocket-eventmachine-server", "~> 1.0"
