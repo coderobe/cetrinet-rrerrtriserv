@@ -32,8 +32,13 @@ module Rrerrtriserv
 
           def authenticate_client(peer:, name:, client:)
             hash = unpack(redis.hget(connections_key, peer))
-            hash.merge("authenticated" => true, "name" => name, "client" => client)
+            hash.merge!("authenticated" => true, "name" => name, "client" => client)
             redis.hset(connections_key, peer, pack(hash))
+          end
+
+          def authenticated?(peer:)
+            hash = unpack(redis.hget(connections_key, peer))
+            hash["authenticated"]
           end
 
           private

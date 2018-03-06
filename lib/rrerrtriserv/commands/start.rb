@@ -8,19 +8,22 @@ require "rrerrtriserv/repository/redis_store"
 require "rrerrtriserv/use_case/connect"
 require "rrerrtriserv/use_case/disconnect"
 require "rrerrtriserv/use_case/receive"
+require "rrerrtriserv/use_case/send_error"
 
 module Rrerrtriserv
   module Commands
     class Start
       def run
         Rrerrtriserv::Repository::RedisStore.hewwo
+        at_exit do
+          Rrerrtriserv::Repository::RedisStore.perish
+        end
+
         Rrerrtriserv.logger.info RUBY_DESCRIPTION
         Rrerrtriserv.logger.info "Starting EventMachine..."
         EM.run do
           start_websocket_server
         end
-      ensure
-        Rrerrtriserv::Repository::RedisStore.perish
       end
 
       private
@@ -33,7 +36,11 @@ module Rrerrtriserv
 
           ws.onmessage do |msg, type|
             Rrerrtriserv.logger.debug "Received message: #{msg.inspect}, #{type.inspect}"
-            Rrerrtriserv::UseCase::Receive.new(ws: ws, msg: msg).run
+            begin
+              Rrerrtriserv::UseCase::Receive.new(ws: ws, msg: msg).run
+            rescue StandardError => e
+              Rrerrtriserv::UseCase::SendError.new(ws: ws, error: e).run
+            end
           end
 
           ws.onclose do

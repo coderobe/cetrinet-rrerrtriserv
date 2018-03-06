@@ -3,11 +3,15 @@
 require "msgpack"
 
 require "rrerrtriserv/use_case/base"
+require "rrerrtriserv/use_case/concerns/authentication"
 
 module Rrerrtriserv
   module UseCase
     class ReceiveChatMessage < Base
+      include Concerns::Authentication
+
       def run
+        require_authentication!
         Rrerrtriserv.logger.info "received message from client to #{target}: #{message}"
         # TODO: distribute message to clients
       end

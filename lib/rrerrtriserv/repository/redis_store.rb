@@ -18,6 +18,7 @@ module Rrerrtriserv
       mediate :add_connection
       mediate :del_connection
       mediate :authenticate_client
+      mediate :authenticated?
     end
   end
 end
