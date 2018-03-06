@@ -29,7 +29,10 @@ module Rrerrtriserv
       private
 
       def start_websocket_server
-        WebSocket::EventMachine::Server.start(host: "0.0.0.0", port: 8080) do |ws|
+        WebSocket::EventMachine::Server.start(
+          host: Rrerrtriserv.config.server.host,
+          port: Rrerrtriserv.config.server.port
+        ) do |ws|
           ws.onopen do
             Rrerrtriserv::UseCase::Connect.new(ws: ws).run
           end
