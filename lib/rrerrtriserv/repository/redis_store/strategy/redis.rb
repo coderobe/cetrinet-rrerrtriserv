@@ -60,10 +60,12 @@ module Rrerrtriserv
 
           def subscribe_client(peer:, handler:)
             Thread.new do
+              unsubscribe_topic = "internal.punsub.#{peer}"
               redis do |r|
                 r.psubscribe("#{BASE_PUBSUB_KEY}.*") do |on|
                   on.pmessage do |_glob, channel, message|
                     topic = channel.split(".")[1..-1].join(".")
+                    return r.punsubscribe if topic == unsubscribe_topic
                     content = unpack(message)
                     handler.call(topic, content)
                   end

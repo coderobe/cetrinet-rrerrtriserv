@@ -25,4 +25,17 @@ Content e.g:
 }
 ```
 
+### `internal.*`
+
+internal-use channels.  most of them are hacks (okay, all of them since there's
+only one right now)
+
+#### `internal.punsub.${peer}`
+
+special channel to unsubscribe from the redis subscription.
+
+`${peer}` is e.g. `127.0.0.1:65892`, i.e. the remote host
+
+Content is discarded.
+
 [pubsub]: https://redis.io/topics/pubsub

@@ -11,6 +11,7 @@ module Rrerrtriserv
     class Disconnect < Base
       def run
         Rrerrtriserv.logger.info "Client #{peer_to_s} disconnected"
+        Rrerrtriserv::Repository::RedisStore.publish(topic: "internal.punsub.#{peer_to_s}", content: {})
         Rrerrtriserv::Repository::RedisStore.del_connection(peer: peer_to_s)
         # Note: This is a workaround because EventMachine is rubbish.
         Rrerrtriserv::Repository::WebSocketStore.delete(dto.fetch(:ws))
