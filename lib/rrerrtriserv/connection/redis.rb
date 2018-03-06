@@ -2,6 +2,7 @@
 
 require "connection_pool"
 require "redis"
+require "singleton"
 
 module Rrerrtriserv
   module Connection
