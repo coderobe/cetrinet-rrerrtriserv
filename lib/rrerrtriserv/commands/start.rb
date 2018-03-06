@@ -4,7 +4,6 @@ require "eventmachine"
 require "websocket"
 require "websocket-eventmachine-server"
 
-require "rrerrtriserv/use_case/send_motd"
 require "rrerrtriserv/use_case/receive"
 
 module Rrerrtriserv
@@ -23,8 +22,7 @@ module Rrerrtriserv
       def start_websocket_server
         WebSocket::EventMachine::Server.start(host: "0.0.0.0", port: 8080) do |ws|
           ws.onopen do
-            Rrerrtriserv.logger.info "Client connected"
-            Rrerrtriserv::UseCase::SendMotd.new(ws: ws).run
+            Rrerrtriserv.logger.info "Client connected, waiting for auth..."
           end
 
           ws.onmessage do |msg, type|

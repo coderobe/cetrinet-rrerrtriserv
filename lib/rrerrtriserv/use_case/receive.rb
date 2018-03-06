@@ -3,12 +3,14 @@
 require "msgpack"
 
 require "rrerrtriserv/use_case/base"
+require "rrerrtriserv/use_case/receive_auth"
 require "rrerrtriserv/use_case/receive_chat_message"
 
 module Rrerrtriserv
   module UseCase
     class Receive < Base
       TYPE_MAP = {
+        "auth" => ReceiveAuth,
         "cmsg" => ReceiveChatMessage
       }.freeze
 
