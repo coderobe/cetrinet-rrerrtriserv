@@ -163,7 +163,7 @@ RSpec.describe Rrerrtriserv::Repository::RedisStore do
 
         it "removes the user from the user list" do
           with_redis do |r|
-            expect(r.zrange("channel:#{channel}:users", 0, -1).sort).to eq ["randomplayer", "user1"]
+            expect(r.zrange("channel:#{channel}:users", 0, -1).sort).to eq %w[randomplayer user1]
             subject
             expect(r.zrange("channel:#{channel}:users", 0, -1)).to eq ["randomplayer"]
           end
