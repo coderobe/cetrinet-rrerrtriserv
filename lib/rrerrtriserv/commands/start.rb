@@ -14,6 +14,7 @@ module Rrerrtriserv
   module Commands
     class Start
       def run
+        check_redis!
         Rrerrtriserv::Repository::RedisStore.hewwo
         at_exit do
           Rrerrtriserv::Repository::RedisStore.perish
@@ -32,6 +33,15 @@ module Rrerrtriserv
       end
 
       private
+
+      def check_redis!
+        Rrerrtriserv::Repository::RedisStore.ping
+      rescue StandardError => e
+        abort(
+          "\033[31;1mAn error occurred while trying to connect to Redis\033[0m\n"\
+          "\033[1m#{e.class.name}\033[0m: #{e.message}"
+        )
+      end
 
       def start_websocket_server
         WebSocket::EventMachine::Server.start(

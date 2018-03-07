@@ -13,6 +13,7 @@ module Rrerrtriserv
       strategy Rrerrtriserv::Repository::RedisStore::Strategy::Redis
       wrappers [Rrerrtriserv::Repository::RedisStore::Wrapper::Logger]
 
+      mediate :ping
       mediate :hewwo
       mediate :perish
       mediate :add_connection

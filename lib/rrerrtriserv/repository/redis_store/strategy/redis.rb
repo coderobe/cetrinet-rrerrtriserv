@@ -12,6 +12,10 @@ module Rrerrtriserv
         class Redis
           BASE_PUBSUB_KEY = "rrerrtriserv"
 
+          def ping
+            redis { |r| r.ping }
+          end
+
           def hewwo
             Rrerrtriserv.logger.debug "saying hewwo to redis"
             redis do |r|
