@@ -13,7 +13,7 @@ module Rrerrtriserv
           BASE_PUBSUB_KEY = "rrerrtriserv"
 
           def ping
-            redis { |r| r.ping }
+            redis(&:ping)
           end
 
           def hewwo
@@ -71,7 +71,9 @@ module Rrerrtriserv
                     topic = channel.split(".")[1..-1].join(".")
                     next r.punsubscribe if topic == unsubscribe_topic
                     content = unpack(message)
-                    handler.call(topic, content)
+                    # handle the message in an own thread so the connection_pool gives us a new Redis
+                    # connection and not the one the listener thread already has
+                    Thread.new { handler.call(topic, content) }
                   end
                 end
               end
@@ -114,6 +116,10 @@ module Rrerrtriserv
 
           def channel_user_list(channel_name:)
             redis { |r| r.zrange("channel:#{channel_name}:users", 0, -1) }
+          end
+
+          def channel_has_user?(channel_name:, user:)
+            !!(redis { |r| r.zscore("channel:#{channel_name}:users", user) })
           end
 
           private

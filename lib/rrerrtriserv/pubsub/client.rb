@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 require "rrerrtriserv/pubsub/handler/chat_message"
+require "rrerrtriserv/pubsub/handler/join"
 
 module Rrerrtriserv
   module Pubsub
     class Client
       TYPE_MAP = {
-        "cmsg" => Pubsub::Handler::ChatMessage
+        "cmsg" => Pubsub::Handler::ChatMessage,
+        "join" => Pubsub::Handler::Join
       }.freeze
 
       attr_reader :ws

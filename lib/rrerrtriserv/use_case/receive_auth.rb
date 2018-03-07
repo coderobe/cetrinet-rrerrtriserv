@@ -5,6 +5,7 @@ require "msgpack"
 require "rrerrtriserv/pubsub/client"
 require "rrerrtriserv/repository/redis_store"
 require "rrerrtriserv/use_case/base"
+require "rrerrtriserv/use_case/join_user"
 require "rrerrtriserv/use_case/send_channel_list"
 require "rrerrtriserv/use_case/send_motd"
 require "rrerrtriserv/use_case/concerns/authentication"
@@ -23,6 +24,7 @@ module Rrerrtriserv
         subscribe_client
         send_motd
         send_channel_list
+        join_default_channel
       end
 
       def data
@@ -60,6 +62,13 @@ module Rrerrtriserv
 
       def send_channel_list
         UseCase::SendChannelList.new(ws: ws).run
+      end
+
+      def join_default_channel
+        UseCase::JoinUser.new(
+          ws: ws,
+          channel_name: Rrerrtriserv.config.default_channel
+        ).run
       end
     end
   end

@@ -14,13 +14,17 @@ module Rrerrtriserv
   module Commands
     class Start
       def run
+        Rrerrtriserv.logger.info RUBY_DESCRIPTION
+
         check_redis!
+
         Rrerrtriserv::Repository::RedisStore.hewwo
         at_exit do
           Rrerrtriserv::Repository::RedisStore.perish
         end
 
-        Rrerrtriserv.logger.info RUBY_DESCRIPTION
+        create_default_channel
+
         Rrerrtriserv.logger.info "Starting EventMachine..."
         EM.run do
           Signal.trap("INT") do
@@ -40,6 +44,12 @@ module Rrerrtriserv
         abort(
           "\033[31;1mAn error occurred while trying to connect to Redis\033[0m\n"\
           "\033[1m#{e.class.name}\033[0m: #{e.message}"
+        )
+      end
+
+      def create_default_channel
+        Rrerrtriserv::Repository::RedisStore.channel_create(
+          channel_name: Rrerrtriserv.config.default_channel
         )
       end
 

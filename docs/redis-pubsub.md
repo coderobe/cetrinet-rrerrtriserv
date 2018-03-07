@@ -25,6 +25,18 @@ Content e.g:
 }
 ```
 
+### `join.*`
+
+the part after the type is the target (i.e. a channel, e.g. `#lobby`)
+
+Content e.g:
+
+```ruby
+{
+  :user => "nilsding"
+}
+```
+
 ### `internal.*`
 
 internal-use channels.  most of them are hacks (okay, all of them since there's
