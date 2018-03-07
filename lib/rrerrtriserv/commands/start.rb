@@ -22,6 +22,11 @@ module Rrerrtriserv
         Rrerrtriserv.logger.info RUBY_DESCRIPTION
         Rrerrtriserv.logger.info "Starting EventMachine..."
         EM.run do
+          Signal.trap("INT") do
+            puts " * received SIGINT, time to say goodbye!"
+            EM.stop
+          end
+
           start_websocket_server
         end
       end
