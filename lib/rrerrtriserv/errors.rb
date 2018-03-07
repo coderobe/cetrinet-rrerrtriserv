@@ -21,5 +21,11 @@ module Rrerrtriserv
         super
       end
     end
+
+    class AlreadyInChannel < Base
+      def initialize(message = "You are already in this channel")
+        super
+      end
+    end
   end
 end

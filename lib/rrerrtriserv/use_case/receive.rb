@@ -5,13 +5,15 @@ require "msgpack"
 require "rrerrtriserv/use_case/base"
 require "rrerrtriserv/use_case/receive_auth"
 require "rrerrtriserv/use_case/receive_chat_message"
+require "rrerrtriserv/use_case/receive_join"
 
 module Rrerrtriserv
   module UseCase
     class Receive < Base
       TYPE_MAP = {
         "auth" => ReceiveAuth,
-        "cmsg" => ReceiveChatMessage
+        "cmsg" => ReceiveChatMessage,
+        "join" => ReceiveJoin
       }.freeze
 
       # dto args:
