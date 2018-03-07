@@ -2,6 +2,7 @@
 
 require "rrerrtriserv/repository/redis_store"
 require "rrerrtriserv/use_case/base"
+require "rrerrtriserv/use_case/send_user_list"
 require "rrerrtriserv/use_case/concerns/authentication"
 require "rrerrtriserv/use_case/concerns/web_socket"
 
@@ -18,6 +19,7 @@ module Rrerrtriserv
 
       def run
         join_channel
+        send_user_list
         publish_join
       end
 
@@ -26,8 +28,15 @@ module Rrerrtriserv
       def join_channel
         Rrerrtriserv::Repository::RedisStore.channel_join(
           user: client_name,
-          channel_name: dto.fetch(:channel_name)
+          channel_name: channel_name
         )
+      end
+
+      def send_user_list
+        Rrerrtriserv::UseCase::SendUserList.new(
+          ws: ws,
+          channel_name: channel_name
+        ).run
       end
 
       def publish_join
@@ -35,6 +44,10 @@ module Rrerrtriserv
           topic: "join.#{dto.fetch(:channel_name)}",
           content: { user: client_name }
         )
+      end
+
+      def channel_name
+        dto.fetch(:channel_name)
       end
     end
   end
