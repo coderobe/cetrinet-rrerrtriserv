@@ -80,6 +80,38 @@ module Rrerrtriserv
             redis { |r| r.publish("#{BASE_PUBSUB_KEY}.#{topic}", pack(content)) }
           end
 
+          def channel_create(channel_name:)
+            redis do |r|
+              return false if r.sismember("channels", channel_name)
+              r.sadd("channels", channel_name)
+            end
+            true
+          end
+
+          def channel_list
+            redis { |r| r.smembers("channels") }
+          end
+
+          def channel_join(user:, channel_name:)
+            redis do |r|
+              return false unless r.sismember("channels", channel_name)
+              r.zadd("channel:#{channel_name}:users", 0, user)
+            end
+            true
+          end
+
+          def channel_part(user:, channel_name:)
+            redis do |r|
+              return false unless r.sismember("channels", channel_name)
+              r.zrem("channel:#{channel_name}:users", user)
+            end
+            true
+          end
+
+          def channel_user_list(channel_name:)
+            redis { |r| r.zrange("channel:#{channel_name}:users", 0, -1) }
+          end
+
           private
 
           def redis(&block)

@@ -22,6 +22,11 @@ module Rrerrtriserv
       mediate :client_name
       mediate :subscribe_client
       mediate :publish
+      mediate :channel_create
+      mediate :channel_list
+      mediate :channel_join
+      mediate :channel_part
+      mediate :channel_user_list
     end
   end
 end

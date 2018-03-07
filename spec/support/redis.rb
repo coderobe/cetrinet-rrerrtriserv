@@ -28,6 +28,7 @@ RSpec.configure do |config|
     # clear redis state and send internal unsubscribe topic
     with_redis do |redis|
       redis.srem("processes", redis_test_ident)
+      redis.del("channels")
       redis.del("#{redis_test_ident}:connections")
       redis.publish("#{redis_test_base_pubsub_key}.internal.punsub.127.1.0.1:54321", "")
     end
