@@ -34,5 +34,20 @@ RSpec.describe Rrerrtriserv::UseCase::SendError do
                  "c" => error.class.name
                })
     end
+
+    context "error is a rrerrtriserv error" do
+      let(:error) { Rrerrtriserv::Errors::Unauthorized.new }
+
+      it "sent message has the expected payload" do
+        subject
+        expect(MessagePack.unpack(ws.__last_sent))
+          .to eq("v" => 1,
+                 "t" => "error",
+                 "d" => {
+                   "m" => error.message,
+                   "c" => error.code
+                 })
+      end
+    end
   end
 end

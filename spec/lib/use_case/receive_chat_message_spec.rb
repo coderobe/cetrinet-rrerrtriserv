@@ -23,7 +23,7 @@ RSpec.describe Rrerrtriserv::UseCase::ReceiveChatMessage do
 
     context "client not yet authenticated" do
       it "fails" do
-        expect { subject }.to raise_error("not authenticated")
+        expect { subject }.to raise_error(Rrerrtriserv::Errors::Unauthorized)
       end
     end
 

@@ -52,7 +52,7 @@ RSpec.describe Rrerrtriserv::UseCase::ReceiveAuth do
       end
 
       it "fails" do
-        expect { subject }.to raise_error("already authenticated")
+        expect { subject }.to raise_error(Rrerrtriserv::Errors::AlreadyAuthenticated)
       end
     end
   end

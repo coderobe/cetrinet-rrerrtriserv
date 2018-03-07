@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "rrerrtriserv/errors"
 require "rrerrtriserv/repository/redis_store"
 require "rrerrtriserv/use_case/concerns/web_socket"
 
@@ -14,13 +15,13 @@ module Rrerrtriserv
         def require_authentication!
           return if Rrerrtriserv::Repository::RedisStore.authenticated?(peer: peer_to_s)
           Rrerrtriserv.logger.warn "#{peer_to_s} tried to send a message which requires authentication"
-          raise "not authenticated"
+          raise Rrerrtriserv::Errors::Unauthorized.new
         end
 
         def not_authenticated!
           return unless Rrerrtriserv::Repository::RedisStore.authenticated?(peer: peer_to_s)
           Rrerrtriserv.logger.warn "#{peer_to_s} tried to send a message which prohibits authentication"
-          raise "already authenticated"
+          raise Rrerrtriserv::Errors::AlreadyAuthenticated.new
         end
 
         def client_name

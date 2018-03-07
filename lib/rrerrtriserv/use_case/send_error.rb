@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "rrerrtriserv/errors"
 require "rrerrtriserv/use_case/send"
 
 module Rrerrtriserv
@@ -12,7 +13,7 @@ module Rrerrtriserv
       def data
         {
           m: error.message,
-          c: error.class.name
+          c: error.is_a?(Rrerrtriserv::Errors::Base) ? error.code : error.class.name
         }
       end
 
