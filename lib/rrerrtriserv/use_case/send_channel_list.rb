@@ -21,8 +21,8 @@ module Rrerrtriserv
       def channels
         Rrerrtriserv::Repository::RedisStore.channel_list.map do |channel|
           {
-            name: channel,
-            users: Rrerrtriserv::Repository::RedisStore.channel_user_list(channel_name: channel).count
+            n: channel,
+            u: Rrerrtriserv::Repository::RedisStore.channel_user_list(channel_name: channel).count
           }
         end
       end
