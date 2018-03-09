@@ -27,5 +27,10 @@ module Rrerrtriserv
         super
       end
     end
+
+    class NotInChannel < Base
+      def initialize(message = "You are not part of this channel")
+      end
+    end
   end
 end

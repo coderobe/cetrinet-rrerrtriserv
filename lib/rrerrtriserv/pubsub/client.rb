@@ -2,13 +2,15 @@
 
 require "rrerrtriserv/pubsub/handler/chat_message"
 require "rrerrtriserv/pubsub/handler/join"
+require "rrerrtriserv/pubsub/handler/part"
 
 module Rrerrtriserv
   module Pubsub
     class Client
       TYPE_MAP = {
         "cmsg" => Pubsub::Handler::ChatMessage,
-        "join" => Pubsub::Handler::Join
+        "join" => Pubsub::Handler::Join,
+        "part" => Pubsub::Handler::Part
       }.freeze
 
       attr_reader :ws

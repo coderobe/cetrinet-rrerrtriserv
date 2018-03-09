@@ -6,6 +6,7 @@ require "rrerrtriserv/use_case/base"
 require "rrerrtriserv/use_case/receive_auth"
 require "rrerrtriserv/use_case/receive_chat_message"
 require "rrerrtriserv/use_case/receive_join"
+require "rrerrtriserv/use_case/receive_part"
 
 module Rrerrtriserv
   module UseCase
@@ -13,7 +14,8 @@ module Rrerrtriserv
       TYPE_MAP = {
         "auth" => ReceiveAuth,
         "cmsg" => ReceiveChatMessage,
-        "join" => ReceiveJoin
+        "join" => ReceiveJoin,
+        "part" => ReceivePart
       }.freeze
 
       # dto args:

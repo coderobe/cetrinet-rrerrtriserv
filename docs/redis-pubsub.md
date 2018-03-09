@@ -25,7 +25,7 @@ Content e.g:
 }
 ```
 
-### `join.*`
+### `join.*` and `part.*`
 
 the part after the type is the target (i.e. a channel, e.g. `#lobby`)
 
