@@ -22,6 +22,18 @@ bundle install
 
 This installs the dependencies of this thing.
 
+## Building a .jar
+
+When running inside JRuby, you can use Warbler to package rrerrtriserv as an
+executable .jar file.  This can be done by simply running:
+
+```sh
+warble
+```
+
+This will create a `./dist/rrerrtriserv.jar` file which can be run on any Java
+8 virtual machine.
+
 ## Usage
 
 To start the server:
