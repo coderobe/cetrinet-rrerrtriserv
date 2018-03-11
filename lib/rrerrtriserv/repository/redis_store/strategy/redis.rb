@@ -58,7 +58,7 @@ module Rrerrtriserv
           def client_name(peer:)
             redis do |r|
               hash = unpack(r.hget(connections_key, peer))
-              hash["name"].split("#").first
+              hash["name"]&.split("#")&.first
             end
           end
 
