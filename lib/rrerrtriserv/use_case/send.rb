@@ -8,7 +8,7 @@ module Rrerrtriserv
   module UseCase
     class Send < Base
       def run
-        dto[:ws].send(MessagePack.pack(payload), type: :binary)
+        dto[:ws].write(MessagePack.pack(payload).bytes)
       end
 
       def version

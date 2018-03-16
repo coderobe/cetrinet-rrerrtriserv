@@ -5,7 +5,7 @@ require "spec_helper"
 require "rrerrtriserv/use_case/receive"
 
 RSpec.describe Rrerrtriserv::UseCase::Receive do
-  let(:ws)      { EventMachineClient.new }
+  let(:ws)      { ReelWebSocketClient.new }
   let(:msg)     { MessagePack.pack(payload) }
   let(:payload) { { v: 1, t: type, d: data } }
   let(:type)    { "???" }

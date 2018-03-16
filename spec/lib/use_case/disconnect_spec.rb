@@ -5,7 +5,7 @@ require "spec_helper"
 require "rrerrtriserv/use_case/disconnect"
 
 RSpec.describe Rrerrtriserv::UseCase::Disconnect do
-  let(:ws) { EventMachineClient.new }
+  let(:ws) { ReelWebSocketClient.new }
 
   let(:dto) { { ws: ws } }
 
@@ -24,12 +24,6 @@ RSpec.describe Rrerrtriserv::UseCase::Disconnect do
         subject
         expect(redis.hget("#{redis_test_ident}:connections", ws.__peer_to_s)).to be_nil
       end
-    end
-
-    it "removes the websocket from the websocket store" do
-      expect(Rrerrtriserv::Repository::WebSocketStore[ws]).to be_a(Hash)
-      subject
-      expect(Rrerrtriserv::Repository::WebSocketStore[ws]).to be_nil
     end
   end
 end

@@ -6,10 +6,9 @@ require "rrerrtriserv"
 require "receptacle/test_support"
 
 require_relative "support/auth_helpers"
-require_relative "support/eventmachine"
 require_relative "support/matchers"
 require_relative "support/redis"
-require_relative "support/web_socket_store"
+require_relative "support/reel_web_socket_client"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

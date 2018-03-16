@@ -11,7 +11,7 @@ module Rrerrtriserv
         end
 
         def peer
-          @_peer ||= %i[port ip].zip(Socket.unpack_sockaddr_in(ws.get_peername)).to_h
+          @_peer ||= %i[port ip].zip(ws.peeraddr[1..2]).to_h
         end
 
         def peer_ip
