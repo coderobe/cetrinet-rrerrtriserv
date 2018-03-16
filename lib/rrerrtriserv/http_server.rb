@@ -15,7 +15,7 @@ module Rrerrtriserv
 
     def self.start
       Rrerrtriserv.logger.info "Starting Reel server"
-      new.run
+      run
     end
 
     private
