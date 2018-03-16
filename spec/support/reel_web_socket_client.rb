@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# Duck class which quacks like a normal EventMachine client connection
+# Duck class which quacks like a normal Reel web socket connection
 #
 # NOTE: when using a different host or port, make sure to also unsubscribe
 # from any redis connections
-class EventMachineClient
+class ReelWebSocketClient
   attr_reader :__last_sent
 
   def initialize(host: "127.1.0.1", port: "54321")
@@ -12,12 +12,12 @@ class EventMachineClient
     @port = port
   end
 
-  def send(message, type: :text) # rubocop:disable Lint/UnusedMethodArgument
-    @__last_sent = message
+  def write(message)
+    @__last_sent = message.is_a?(Array) ? message.pack("C*") : message
   end
 
-  def get_peername # rubocop:disable Naming/AccessorMethodName
-    Socket.sockaddr_in(@port, @host)
+  def peeraddr
+    ["AF_IDGAF", @port, @host, "127.2.2.66"]
   end
 
   def __peer_to_s

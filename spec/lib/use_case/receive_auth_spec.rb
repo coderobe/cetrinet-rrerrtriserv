@@ -5,7 +5,7 @@ require "spec_helper"
 require "rrerrtriserv/use_case/receive_auth"
 
 RSpec.describe Rrerrtriserv::UseCase::ReceiveAuth do
-  let(:ws)     { EventMachineClient.new }
+  let(:ws)     { ReelWebSocketClient.new }
   let(:data)   { { "c" => client, "n" => name } }
   let(:client) { "cetrinet/0.1.0" }
   let(:name)   { "nilsding#Fnord31337" }

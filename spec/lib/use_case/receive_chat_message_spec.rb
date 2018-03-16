@@ -5,7 +5,7 @@ require "spec_helper"
 require "rrerrtriserv/use_case/receive_chat_message"
 
 RSpec.describe Rrerrtriserv::UseCase::ReceiveChatMessage do
-  let(:ws)      { EventMachineClient.new }
+  let(:ws)      { ReelWebSocketClient.new }
   let(:data)    { { "t" => target, "m" => message } }
   let(:target)  { "#lobby" }
   let(:message) { "owo what's this?" }

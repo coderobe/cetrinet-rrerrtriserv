@@ -5,7 +5,7 @@ require "spec_helper"
 require "rrerrtriserv/use_case/connect"
 
 RSpec.describe Rrerrtriserv::UseCase::Connect do
-  let(:ws) { EventMachineClient.new }
+  let(:ws) { ReelWebSocketClient.new }
 
   let(:dto) { { ws: ws } }
 
@@ -29,12 +29,6 @@ RSpec.describe Rrerrtriserv::UseCase::Connect do
         expect(value).to be_msgpack
         expect(MessagePack.unpack(value)).to include("authenticated" => false)
       end
-    end
-
-    it "adds the websocket to the websocket store" do
-      expect(Rrerrtriserv::Repository::WebSocketStore[ws]).to be_nil
-      subject
-      expect(Rrerrtriserv::Repository::WebSocketStore[ws]).to be_a(Hash)
     end
   end
 end

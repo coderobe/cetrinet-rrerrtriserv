@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require "rrerrtriserv/pubsub/handler/base"
-require "rrerrtriserv/repository/redis_store"
-require "rrerrtriserv/repository/web_socket_store"
 require "rrerrtriserv/use_case/send_join"
 
 module Rrerrtriserv

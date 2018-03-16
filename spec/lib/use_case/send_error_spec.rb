@@ -5,7 +5,7 @@ require "spec_helper"
 require "rrerrtriserv/use_case/send_error"
 
 RSpec.describe Rrerrtriserv::UseCase::SendError do
-  let(:ws)    { EventMachineClient.new }
+  let(:ws)    { ReelWebSocketClient.new }
   let(:error) { RuntimeError.new("oops, I did it again") }
 
   let(:dto) { { ws: ws, error: error } }
