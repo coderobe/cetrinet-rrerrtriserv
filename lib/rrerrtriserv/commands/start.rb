@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "rrerrtriserv/http_server"
+require "rrerrtriserv/version"
 require "rrerrtriserv/repository/redis_store"
 require "rrerrtriserv/use_case/connect"
 require "rrerrtriserv/use_case/disconnect"
@@ -11,6 +12,7 @@ module Rrerrtriserv
   module Commands
     class Start
       def run
+        Rrerrtriserv.logger.info "This is rrerrtriserv #{Rrerrtriserv::VERSION} - codename: #{Rrerrtriserv::CODENAME}"
         Rrerrtriserv.logger.info RUBY_DESCRIPTION
 
         check_redis!
