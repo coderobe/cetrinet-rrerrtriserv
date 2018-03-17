@@ -29,6 +29,7 @@ module Rrerrtriserv
       mediate :channel_part
       mediate :channel_user_list
       mediate :channel_has_user?
+      mediate :redis_info
     end
   end
 end

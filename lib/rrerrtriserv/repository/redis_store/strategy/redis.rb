@@ -122,6 +122,10 @@ module Rrerrtriserv
             !!(redis { |r| r.zscore("channel:#{channel_name}:users", user) })
           end
 
+          def redis_info
+            redis(&:info)
+          end
+
           private
 
           def redis(&block)

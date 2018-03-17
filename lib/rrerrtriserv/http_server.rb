@@ -3,9 +3,13 @@
 require "celluloid/current"
 require "reel"
 
+require "rrerrtriserv/web/router"
+require "rrerrtriserv/web/handler/status"
+
 module Rrerrtriserv
   class HTTPServer < Reel::Server::HTTP
     def initialize
+      setup_router
       super(
         Rrerrtriserv.config.server.host,
         Rrerrtriserv.config.server.port,
@@ -19,6 +23,14 @@ module Rrerrtriserv
     end
 
     private
+
+    def setup_router
+      @router = Rrerrtriserv::Web::Router.new.tap do |r|
+        r.register_route "/", ->(_) { [:ok, {}, "cool\n"] }
+        r.register_route "/status", Rrerrtriserv::Web::Handler::Status.new
+        r.finalize_routes!
+      end
+    end
 
     def on_connection(connection)
       while (request = connection.request)
@@ -52,8 +64,7 @@ module Rrerrtriserv
     end
 
     def handle_request(request)
-      Rrerrtriserv.logger.warn "normal http request! wtf!"
-      request.respond :ok, "cool\n"
+      @router.process(request)
     end
   end
 end
