@@ -11,7 +11,7 @@ module Rrerrtriserv
         end
 
         def peer
-          @_peer ||= %i[port ip].zip(ws.peeraddr[1..2]).to_h
+          @_peer ||= {:ip => "127.0.0.1", :port => "28420"}
         end
 
         def peer_ip

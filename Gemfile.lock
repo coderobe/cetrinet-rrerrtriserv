@@ -63,7 +63,7 @@ GEM
     nio4r (2.3.0)
     nio4r (2.3.0-java)
     parallel (1.12.1)
-    parser (2.5.0.4)
+    parser (2.5.0.5)
       ast (~> 2.4.0)
     powerpack (0.1.1)
     public_suffix (3.0.2)
@@ -125,7 +125,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.16)
+  bundler (~> 2.0)
   rake (~> 12.0)
   rrerrtriserv!
   rspec (~> 3.0)
@@ -134,4 +134,4 @@ DEPENDENCIES
   warbler (~> 2.0)
 
 BUNDLED WITH
-   1.16.1
+   2.1.0
